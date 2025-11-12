@@ -12,19 +12,19 @@ const VideoManager = {
 
 	loadVideos: function() {
 		this.videos = {
-			'mexico': ['dQw4w9WgXcQ'],      // México
+			'mexico': ['6hOfmP2RP8E&t=149s'],      // México
 			'usa': ['dQw4w9WgXcQ'],         // USA
-			'argentina': ['dQw4w9WgXcQ'],   // Argentina
-			'brasil': ['dQw4w9WgXcQ'],      // Brasil
+			'argentina': ['6rrQn5PqerQ'],   // Argentina
+			'brasil': ['6hOfmP2RP8E&t=149s'],      // Brasil
 			'japon': ['dQw4w9WgXcQ'],       // Japón
 			'canada': ['dQw4w9WgXcQ'],      // Canadá
 			'colombia': ['dQw4w9WgXcQ'],    // Colombia
 			'coreaDelSur': ['dQw4w9WgXcQ'], // Corea del Sur
 			'egipto': ['dQw4w9WgXcQ'],      // Egipto
 			'inglaterra': ['dQw4w9WgXcQ'],  // Inglaterra
-			'arabiaSaudita': ['dQw4w9WgXcQ'],
-			'argelia': ['dQw4w9WgXcQ'],
-			'australia': ['dQw4w9WgXcQ'],
+			'arabiaSaudita': ['wlLIlT4y8Z4'],
+			'argelia': ['Z5Dbzub5s8o'],
+			'australia': ['6rrQn5PqerQ'],
 			'caboVerde': ['dQw4w9WgXcQ'],
 			'catar': ['dQw4w9WgXcQ'],
 			'costaDeMarfil': ['dQw4w9WgXcQ'],
