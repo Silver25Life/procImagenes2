@@ -9,6 +9,7 @@ const CountryManager = {
 		console.log("🌍 CountryManager inicializado");
 	},
 
+	// countryManager.js - En la función loadCountryConfig()
 	loadCountryConfig: function() {
 		this.countryTargets = {
 			'mexicoTarget': 'mexico',
@@ -41,7 +42,6 @@ const CountryManager = {
 			'uzbekistanTarget': 'uzbekistan'
 		};
 	},
-
 	setupTargetEvents: function() {
 		Object.keys(this.countryTargets).forEach(targetId => {
 			const target = document.getElementById(targetId);
