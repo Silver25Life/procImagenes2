@@ -13,11 +13,11 @@ const AnimationManager = {
 		}
 
 		const country = CountryManager.getCurrentCountry();
-		const flagId = `bandera${this.capitalizeFirstLetter(country)}`;
+		const flagId = this.getFlagId(country);
 		const flag = document.getElementById(flagId);
 
 		if (!flag) {
-			console.warn('⚠️ No se encontró la bandera para animar');
+			console.warn(`⚠️ No se encontró la bandera ${flagId} para animar`);
 			return false;
 		}
 
@@ -45,7 +45,7 @@ const AnimationManager = {
 	stopWave: function() {
 		const country = CountryManager.getCurrentCountry();
 		if (country) {
-			const flagId = `bandera${this.capitalizeFirstLetter(country)}`;
+			const flagId = this.getFlagId(country);
 			const flag = document.getElementById(flagId);
 
 			if (flag) {
@@ -64,6 +64,43 @@ const AnimationManager = {
 		}
 	},
 
+	// NUEVA FUNCIÓN: Mapeo correcto de países a IDs de banderas
+	getFlagId: function(country) {
+		const flagIds = {
+			'mexico': 'banderaMexico',
+			'usa': 'banderaUSA',
+			'argentina': 'banderaArgentina',
+			'brasil': 'banderaBrasil',
+			'japon': 'banderaJapon',
+			'canada': 'banderaCanada',
+			'colombia': 'banderaColombia',
+			'coreaDelSur': 'banderaCoreaDelSur',
+			'egipto': 'banderaEgipto',
+			'inglaterra': 'banderaInglaterra',
+			'arabiaSaudita': 'banderaArabiaSaudita',
+			'argelia': 'banderaArgelia',
+			'australia': 'banderaAustralia',
+			'caboVerde': 'banderaCaboVerde',
+			'catar': 'banderaCatar',
+			'costaDeMarfil': 'banderaCostaDeMarfil',
+			'ecuador': 'banderaEcuador',
+			'ghana': 'banderaGhana',
+			'iran': 'banderaIran',
+			'jordania': 'banderaJordania',
+			'marruecos': 'banderaMarruecos',
+			'nuevaZelanda': 'banderaNuevaZelanda',
+			'paraguay': 'banderaParaguay',
+			'senegal': 'banderaSenegal',
+			'sudafrica': 'banderaSudafrica',
+			'tunez': 'banderaTunez',
+			'uruguay': 'banderaUruguay',
+			'uzbekistan': 'banderaUzbekistan'
+		};
+
+		return flagIds[country] || null;
+	},
+
+	// Función auxiliar para capitalizar (por si acaso)
 	capitalizeFirstLetter: function(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	},
