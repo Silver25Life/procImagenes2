@@ -149,3 +149,4 @@ const VideoManager = {
 function onYouTubeIframeAPIReady() {
 	console.log('✅ YouTube API lista para móvil');
 }
+//a
