@@ -1,4 +1,4 @@
-// videoManager.js - Gestión de videos de YouTube (VERSIÓN CORREGIDA)
+// videoManager.js - Versión móvil optimizada
 const VideoManager = {
 	player: null,
 	videos: {},
@@ -7,25 +7,24 @@ const VideoManager = {
 	init: function() {
 		this.loadVideos();
 		this.setupYouTubeAPI();
-		console.log("🎥 VideoManager inicializado");
+		console.log("🎥 VideoManager inicializado (Modo Móvil)");
 	},
 
 	loadVideos: function() {
 		this.videos = {
-			'mexico': ['dQw4w9WgXcQ'],
-			'usa': ['JZyL_7Xl3-0'],
-			'argentina': ['lXaH_OHdGtE'],
-			'brasil': ['v8L_eB1fX_c'],
-			'japon': ['SR9gM1y4_6M'],
-			'canada': ['K4RZxfeUBeY'],
-			'colombia': ['gUbhN4m6S1s'],
-			'coreaDelSur': ['ZuzCFh8uh-0'],
-			'egipto': ['B_1WKdLlM6U'],
-			'inglaterra': ['CTMx1w1jjEQ'],
+			'mexico': ['k9XdQqBUf1E'],      // México
+			'usa': ['JZyL_7Xl3-0'],         // USA
+			'argentina': ['lXaH_OHdGtE'],   // Argentina
+			'brasil': ['v8L_eB1fX_c'],      // Brasil
+			'japon': ['SR9gM1y4_6M'],       // Japón
+			'canada': ['K4RZxfeUBeY'],      // Canadá
+			'colombia': ['gUbhN4m6S1s'],    // Colombia
+			'coreaDelSur': ['ZuzCFh8uh-0'], // Corea del Sur
+			'egipto': ['B_1WKdLlM6U'],      // Egipto
+			'inglaterra': ['CTMx1w1jjEQ'],  // Inglaterra
 			'arabiaSaudita': ['cU3ckWZ6idI'],
 			'argelia': ['9F7He5h5Tio'],
 			'australia': ['E2evABYKrFY'],
-			// Agrega los demás países cuando tengas sus videos
 			'caboVerde': [''],
 			'catar': [''],
 			'costaDeMarfil': [''],
@@ -45,12 +44,10 @@ const VideoManager = {
 	},
 
 	setupYouTubeAPI: function() {
-		// Solo cargar la API si no está ya cargada
 		if (!window.YT) {
 			const tag = document.createElement('script');
 			tag.src = 'https://www.youtube.com/iframe_api';
-			const firstScriptTag = document.getElementsByTagName('script')[0];
-			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			document.head.appendChild(tag);
 		}
 	},
 
@@ -62,103 +59,81 @@ const VideoManager = {
 
 		const videoId = this.videos[country][0];
 
-		// Validar que el videoId no esté vacío
 		if (!videoId || videoId.trim() === '') {
 			alert('El video para este país no está configurado');
 			return false;
 		}
 
 		this.currentVideoId = videoId;
-		const youtubeModal = document.getElementById('youtubeModal');
-		youtubeModal.style.display = 'block';
-
-		// Esperar a que el modal esté visible antes de cargar el video
-		setTimeout(() => {
-			this.loadVideo(videoId);
-		}, 100);
-
+		this.showVideoModal(videoId);
 		return true;
 	},
 
-	loadVideo: function(videoId) {
+	showVideoModal: function(videoId) {
+		const youtubeModal = document.getElementById('youtubeModal');
+		youtubeModal.style.display = 'block';
+
+		// Usar iframe directo (más confiable en móvil)
+		this.loadVideoSimple(videoId);
+	},
+
+	// Método SIMPLE - Más confiable en móvil
+	loadVideoSimple: function(videoId) {
 		const youtubePlayer = document.getElementById('youtubePlayer');
 
-		// Limpiar contenedor primero
-		youtubePlayer.innerHTML = '';
+		// Limpiar y crear iframe simple
+		youtubePlayer.innerHTML = `
+            <iframe 
+                src="https://www.youtube.com/embed/${videoId}?playsinline=1&rel=0&modestbranding=1" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+                style="width: 100%; height: 100%; border: none;"
+            ></iframe>
+        `;
 
-		// Crear nuevo iframe
-		const iframe = document.createElement('iframe');
-		iframe.width = '100%';
-		iframe.height = '100%';
-		iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
-		iframe.frameBorder = '0';
-		iframe.allow = 'autoplay; encrypted-media';
-		iframe.allowFullscreen = true;
-
-		youtubePlayer.appendChild(iframe);
-
-		console.log(`🎥 Cargando video: ${videoId}`);
+		console.log(`📱 Video cargado (modo móvil): ${videoId}`);
 	},
 
-	// Función alternativa usando la API oficial (más confiable)
-	loadVideoWithAPI: function(videoId) {
+	// Método alternativo con botón de play manual (recomendado para móvil)
+	loadVideoWithPlayButton: function(videoId) {
 		const youtubePlayer = document.getElementById('youtubePlayer');
-		youtubePlayer.innerHTML = '';
 
-		// Usar la API de YouTube si está disponible
-		if (window.YT && YT.Player) {
-			this.player = new YT.Player('youtubePlayer', {
-				height: '100%',
-				width: '100%',
-				videoId: videoId,
-				playerVars: {
-					'autoplay': 1,
-					'playsinline': 1,
-					'controls': 1,
-					'rel': 0,
-					'modestbranding': 1,
-					'enablejsapi': 1
-				},
-				events: {
-					'onReady': this.onPlayerReady,
-					'onStateChange': this.onPlayerStateChange,
-					'onError': this.onPlayerError
-				}
-			});
-		} else {
-			// Fallback: usar iframe directo
-			this.loadVideo(videoId);
+		youtubePlayer.innerHTML = `
+            <div style="position: relative; width: 100%; height: 100%;">
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?playsinline=1&rel=0&modestbranding=1&showinfo=0" 
+                    frameborder="0" 
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                    style="width: 100%; height: 100%; border: none;"
+                    id="youtubeIframe"
+                ></iframe>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <button onclick="VideoManager.startPlayback()" 
+                            style="background: #ff0000; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-size: 18px; cursor: pointer;">
+                        ▶ Reproducir
+                    </button>
+                </div>
+            </div>
+        `;
+	},
+
+	startPlayback: function() {
+		// Esta función se llamará cuando el usuario haga clic en "Reproducir"
+		const iframe = document.getElementById('youtubeIframe');
+		if (iframe) {
+			// Cambiar la URL para incluir autoplay después de la interacción del usuario
+			const newSrc = iframe.src + '&autoplay=1';
+			iframe.src = newSrc;
 		}
-	},
-
-	onPlayerReady: function(event) {
-		console.log('✅ Player listo');
-		// No autoplay automático para evitar bloqueos
-	},
-
-	onPlayerStateChange: function(event) {
-		console.log('Estado del player:', event.data);
-		if (event.data == YT.PlayerState.ENDED) {
-			VideoManager.closeVideo();
-		}
-	},
-
-	onPlayerError: function(event) {
-		console.error('❌ Error en el player:', event.data);
-		alert('Error al cargar el video. Intenta con otro video.');
-		VideoManager.closeVideo();
 	},
 
 	closeVideo: function() {
 		const youtubeModal = document.getElementById('youtubeModal');
 		youtubeModal.style.display = 'none';
 
-		// Detener el video
-		if (this.player && this.player.stopVideo) {
-			this.player.stopVideo();
-		}
-
-		// Limpiar el iframe
+		// Limpiar el reproductor
 		const youtubePlayer = document.getElementById('youtubePlayer');
 		youtubePlayer.innerHTML = '';
 
@@ -170,8 +145,7 @@ const VideoManager = {
 	}
 };
 
-// Función global requerida por la API de YouTube
+// Función global para YouTube API
 function onYouTubeIframeAPIReady() {
-	console.log('✅ YouTube API lista');
-	// El player se inicializará cuando sea necesario
+	console.log('✅ YouTube API lista para móvil');
 }
