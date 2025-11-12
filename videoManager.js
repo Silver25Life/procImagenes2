@@ -12,27 +12,27 @@ const VideoManager = {
 
 	loadVideos: function() {
 		this.videos = {
-			'mexico': ['6hOfmP2RP8E&t=149s'],      // México
+			'mexico': ['PWNYKe-_uKA'],      // México
 			'usa': ['aK_850XXqTA'],         // USA
 			'argentina': ['6rrQn5PqerQ'],   // Argentina
-			'brasil': ['6hOfmP2RP8E&t=149s'],      // Brasil
+			'brasil': ['PWNYKe-_uKA'],      // Brasil
 			'japon': ['iNMMchBwmRE'],       // Japón
-			'canada': ['YV0fAhM5LTY'],      // Canadá
+			'canada': ['GbL5aIN7Lq0'],      // Canadá
 			'colombia': ['iNMMchBwmRE'],    // Colombia
 			'coreaDelSur': ['bRbwPVRRoMk'], // Corea del Sur
 			'egipto': ['gkJBdi3pmt4'],      // Egipto
-			'inglaterra': ['_T9uGbgFsgI'],  // Inglaterra
+			'inglaterra': ['gmowqMk-Ie0'],  // Inglaterra
 			'arabiaSaudita': ['wlLIlT4y8Z4'],
 			'argelia': ['Z5Dbzub5s8o'],
 			'australia': ['6rrQn5PqerQ'],
 			'caboVerde': ['M1q66V_ZO6g'],
-			'catar': ['b7X1YkrkUHA&t'],
+			'catar': ['ZBXE8BxI_Ic'],
 			'costaDeMarfil': ['QXBDA1Rf-YI'],
 			'ecuador': ['EtTGMyDTWLU'],
 			'ghana': ['5mvpS-yvij0'],
-			'iran': ['_T9uGbgFsgI'],
+			'iran': ['542UZVFRLJI'],
 			'jordania': ['pMDo_xz5Uso'],
-			'marruecos': ['4P4KILHLIkw&t=3s'],
+			'marruecos': ['W2NMdtbgocY'],
 			'nuevaZelanda': ['0iFtX2oMeC0'],
 			'paraguay': ['Bz9AjSJOQDY'],
 			'senegal': ['DqvtwMCRA68'],
