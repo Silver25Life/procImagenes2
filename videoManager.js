@@ -13,33 +13,33 @@ const VideoManager = {
 	loadVideos: function() {
 		this.videos = {
 			'mexico': ['dQw4w9WgXcQ'],      // México
-			'usa': ['JZyL_7Xl3-0'],         // USA
-			'argentina': ['lXaH_OHdGtE'],   // Argentina
-			'brasil': ['v8L_eB1fX_c'],      // Brasil
-			'japon': ['SR9gM1y4_6M'],       // Japón
-			'canada': ['K4RZxfeUBeY'],      // Canadá
-			'colombia': ['gUbhN4m6S1s'],    // Colombia
-			'coreaDelSur': ['ZuzCFh8uh-0'], // Corea del Sur
-			'egipto': ['B_1WKdLlM6U'],      // Egipto
-			'inglaterra': ['CTMx1w1jjEQ'],  // Inglaterra
-			'arabiaSaudita': ['cU3ckWZ6idI'],
-			'argelia': ['9F7He5h5Tio'],
-			'australia': ['E2evABYKrFY'],
-			'caboVerde': [''],
-			'catar': [''],
-			'costaDeMarfil': [''],
-			'ecuador': [''],
-			'ghana': [''],
-			'iran': [''],
-			'jordania': [''],
-			'marruecos': [''],
-			'nuevaZelanda': [''],
-			'paraguay': [''],
-			'senegal': [''],
-			'sudafrica': [''],
-			'tunez': [''],
-			'uruguay': [''],
-			'uzbekistan': ['']
+			'usa': ['dQw4w9WgXcQ'],         // USA
+			'argentina': ['dQw4w9WgXcQ'],   // Argentina
+			'brasil': ['dQw4w9WgXcQ'],      // Brasil
+			'japon': ['dQw4w9WgXcQ'],       // Japón
+			'canada': ['dQw4w9WgXcQ'],      // Canadá
+			'colombia': ['dQw4w9WgXcQ'],    // Colombia
+			'coreaDelSur': ['dQw4w9WgXcQ'], // Corea del Sur
+			'egipto': ['dQw4w9WgXcQ'],      // Egipto
+			'inglaterra': ['dQw4w9WgXcQ'],  // Inglaterra
+			'arabiaSaudita': ['dQw4w9WgXcQ'],
+			'argelia': ['dQw4w9WgXcQ'],
+			'australia': ['dQw4w9WgXcQ'],
+			'caboVerde': ['dQw4w9WgXcQ'],
+			'catar': ['dQw4w9WgXcQ'],
+			'costaDeMarfil': ['dQw4w9WgXcQ'],
+			'ecuador': ['dQw4w9WgXcQ'],
+			'ghana': ['dQw4w9WgXcQ'],
+			'iran': ['dQw4w9WgXcQ'],
+			'jordania': ['dQw4w9WgXcQ'],
+			'marruecos': ['dQw4w9WgXcQ'],
+			'nuevaZelanda': ['dQw4w9WgXcQ'],
+			'paraguay': ['dQw4w9WgXcQ'],
+			'senegal': ['dQw4w9WgXcQ'],
+			'sudafrica': ['dQw4w9WgXcQ'],
+			'tunez': ['dQw4w9WgXcQ'],
+			'uruguay': ['dQw4w9WgXcQ'],
+			'uzbekistan': ['dQw4w9WgXcQ']
 		};
 	},
 
