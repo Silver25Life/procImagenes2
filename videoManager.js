@@ -1,7 +1,8 @@
-// videoManager.js - Gestión de videos de YouTube
+// videoManager.js - Gestión de videos de YouTube (VERSIÓN CORREGIDA)
 const VideoManager = {
 	player: null,
 	videos: {},
+	currentVideoId: null,
 
 	init: function() {
 		this.loadVideos();
@@ -11,100 +12,166 @@ const VideoManager = {
 
 	loadVideos: function() {
 		this.videos = {
-			mexico: ['0DFRNX3EZFE&t=20s'], // Reemplaza con IDs reales
-			usa: ['9bZkp7q19f0'],
-			argentina: ['kJQP7kiw5Fk'],
-			brasil: ['60ItHLz5WEA'],
-			japon: ['otN2_-B4Hc8'],
-			canada: ['6Whgn_iE5uc'],
-			colombia: ['dQw4w9WgXcQ'],
-			coreaDelSur: ['9bZkp7q19f0'],
-			egipto: ['kJQP7kiw5Fk'],
-			inglaterra: ['60ItHLz5WEA'],
-			arabiaSaudita: ['dQw4w9WgXcQ'],
-			argelia: ['9bZkp7q19f0'],
-			australia: ['kJQP7kiw5Fk'],
-			caboVerde: ['60ItHLz5WEA'],
-			catar: ['dQw4w9WgXcQ'],
-			costaDeMarfil: ['9bZkp7q19f0'],
-			ecuador: ['kJQP7kiw5Fk'],
-			ghana: ['60ItHLz5WEA'],
-			iran: ['dQw4w9WgXcQ'],
-			jordania: ['9bZkp7q19f0'],
-			marruecos: ['kJQP7kiw5Fk'],
-			nuevaZelanda: ['60ItHLz5WEA'],
-			paraguay: ['dQw4w9WgXcQ'],
-			senegal: ['9bZkp7q19f0'],
-			sudafrica: ['kJQP7kiw5Fk'],
-			tunez: ['60ItHLz5WEA'],
-			uruguay: ['dQw4w9WgXcQ'],
-			uzbekistan: ['9bZkp7q19f0']
+			'mexico': ['dQw4w9WgXcQ'],
+			'usa': ['JZyL_7Xl3-0'],
+			'argentina': ['lXaH_OHdGtE'],
+			'brasil': ['v8L_eB1fX_c'],
+			'japon': ['SR9gM1y4_6M'],
+			'canada': ['K4RZxfeUBeY'],
+			'colombia': ['gUbhN4m6S1s'],
+			'coreaDelSur': ['ZuzCFh8uh-0'],
+			'egipto': ['B_1WKdLlM6U'],
+			'inglaterra': ['CTMx1w1jjEQ'],
+			'arabiaSaudita': ['cU3ckWZ6idI'],
+			'argelia': ['9F7He5h5Tio'],
+			'australia': ['E2evABYKrFY'],
+			// Agrega los demás países cuando tengas sus videos
+			'caboVerde': [''],
+			'catar': [''],
+			'costaDeMarfil': [''],
+			'ecuador': [''],
+			'ghana': [''],
+			'iran': [''],
+			'jordania': [''],
+			'marruecos': [''],
+			'nuevaZelanda': [''],
+			'paraguay': [''],
+			'senegal': [''],
+			'sudafrica': [''],
+			'tunez': [''],
+			'uruguay': [''],
+			'uzbekistan': ['']
 		};
 	},
 
 	setupYouTubeAPI: function() {
-		const tag = document.createElement('script');
-		tag.src = 'https://www.youtube.com/iframe_api';
-		const firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		// Solo cargar la API si no está ya cargada
+		if (!window.YT) {
+			const tag = document.createElement('script');
+			tag.src = 'https://www.youtube.com/iframe_api';
+			const firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		}
 	},
 
 	playCountryVideo: function(country) {
-		if (!this.videos[country] || this.videos[country].length === 0) {
+		if (!this.videos[country] || !this.videos[country][0]) {
 			alert('No hay videos disponibles para este país');
 			return false;
 		}
 
-		const videoId = this.videos[country][0]; // Primer video disponible
-		const youtubeModal = document.getElementById('youtubeModal');
+		const videoId = this.videos[country][0];
 
+		// Validar que el videoId no esté vacío
+		if (!videoId || videoId.trim() === '') {
+			alert('El video para este país no está configurado');
+			return false;
+		}
+
+		this.currentVideoId = videoId;
+		const youtubeModal = document.getElementById('youtubeModal');
 		youtubeModal.style.display = 'block';
-		this.loadVideo(videoId);
+
+		// Esperar a que el modal esté visible antes de cargar el video
+		setTimeout(() => {
+			this.loadVideo(videoId);
+		}, 100);
 
 		return true;
 	},
 
 	loadVideo: function(videoId) {
 		const youtubePlayer = document.getElementById('youtubePlayer');
+
+		// Limpiar contenedor primero
 		youtubePlayer.innerHTML = '';
 
-		this.player = new YT.Player('youtubePlayer', {
-			height: '100%',
-			width: '100%',
-			videoId: videoId,
-			playerVars: {
-				'playsinline': 1,
-				'controls': 1,
-				'rel': 0,
-				'modestbranding': 1
-			},
-			events: {
-				'onReady': this.onPlayerReady,
-				'onStateChange': this.onPlayerStateChange
-			}
-		});
+		// Crear nuevo iframe
+		const iframe = document.createElement('iframe');
+		iframe.width = '100%';
+		iframe.height = '100%';
+		iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+		iframe.frameBorder = '0';
+		iframe.allow = 'autoplay; encrypted-media';
+		iframe.allowFullscreen = true;
+
+		youtubePlayer.appendChild(iframe);
+
+		console.log(`🎥 Cargando video: ${videoId}`);
+	},
+
+	// Función alternativa usando la API oficial (más confiable)
+	loadVideoWithAPI: function(videoId) {
+		const youtubePlayer = document.getElementById('youtubePlayer');
+		youtubePlayer.innerHTML = '';
+
+		// Usar la API de YouTube si está disponible
+		if (window.YT && YT.Player) {
+			this.player = new YT.Player('youtubePlayer', {
+				height: '100%',
+				width: '100%',
+				videoId: videoId,
+				playerVars: {
+					'autoplay': 1,
+					'playsinline': 1,
+					'controls': 1,
+					'rel': 0,
+					'modestbranding': 1,
+					'enablejsapi': 1
+				},
+				events: {
+					'onReady': this.onPlayerReady,
+					'onStateChange': this.onPlayerStateChange,
+					'onError': this.onPlayerError
+				}
+			});
+		} else {
+			// Fallback: usar iframe directo
+			this.loadVideo(videoId);
+		}
 	},
 
 	onPlayerReady: function(event) {
-		event.target.playVideo();
+		console.log('✅ Player listo');
+		// No autoplay automático para evitar bloqueos
 	},
 
 	onPlayerStateChange: function(event) {
+		console.log('Estado del player:', event.data);
 		if (event.data == YT.PlayerState.ENDED) {
 			VideoManager.closeVideo();
 		}
+	},
+
+	onPlayerError: function(event) {
+		console.error('❌ Error en el player:', event.data);
+		alert('Error al cargar el video. Intenta con otro video.');
+		VideoManager.closeVideo();
 	},
 
 	closeVideo: function() {
 		const youtubeModal = document.getElementById('youtubeModal');
 		youtubeModal.style.display = 'none';
 
+		// Detener el video
 		if (this.player && this.player.stopVideo) {
 			this.player.stopVideo();
 		}
+
+		// Limpiar el iframe
+		const youtubePlayer = document.getElementById('youtubePlayer');
+		youtubePlayer.innerHTML = '';
+
+		this.currentVideoId = null;
 	},
 
 	hasVideos: function(country) {
-		return this.videos[country] && this.videos[country].length > 0;
+		return this.videos[country] && this.videos[country].length > 0 && this.videos[country][0] !== '';
 	}
 };
+
+// Función global requerida por la API de YouTube
+function onYouTubeIframeAPIReady() {
+	console.log('✅ YouTube API lista');
+	// El player se inicializará cuando sea necesario
+}

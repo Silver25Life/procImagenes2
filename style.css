@@ -350,19 +350,21 @@ a-scene {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
-/* Modal de YouTube */
+/* Mejoras para el modal de YouTube */
 .youtube-modal {
 	max-width: 90%;
 	width: 800px;
 	background: #000;
+	border-radius: 12px;
+	overflow: hidden;
 }
 
 #youtubePlayer {
 	width: 100%;
-	height: 0;
-	padding-bottom: 56.25%;
-	/* Relación de aspecto 16:9 */
+	height: 450px;
+	/* Altura fija para mejor compatibilidad */
 	position: relative;
+	background: #000;
 }
 
 #youtubePlayer iframe {
@@ -371,10 +373,23 @@ a-scene {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	border-radius: 8px;
+	border: none;
 }
 
-/* Asegurar que el modal de YouTube tenga buen z-index */
-.modal {
-	z-index: 10002;
+/* Para móviles */
+@media (max-width: 768px) {
+	.youtube-modal {
+		width: 95%;
+		margin: 2% auto;
+	}
+
+	#youtubePlayer {
+		height: 300px;
+	}
+}
+
+@media (max-width: 480px) {
+	#youtubePlayer {
+		height: 250px;
+	}
 }
