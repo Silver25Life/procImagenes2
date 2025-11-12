@@ -12,7 +12,7 @@ const VideoManager = {
 
 	loadVideos: function() {
 		this.videos = {
-			'mexico': ['k9XdQqBUf1E'],      // México
+			'mexico': ['dQw4w9WgXcQ'],      // México
 			'usa': ['JZyL_7Xl3-0'],         // USA
 			'argentina': ['lXaH_OHdGtE'],   // Argentina
 			'brasil': ['v8L_eB1fX_c'],      // Brasil
