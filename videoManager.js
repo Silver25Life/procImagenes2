@@ -11,7 +11,7 @@ const VideoManager = {
 
 	loadVideos: function() {
 		this.videos = {
-			mexico: ['dQw4w9WgXcQ'], // Reemplaza con IDs reales
+			mexico: ['0DFRNX3EZFE&t=20s'], // Reemplaza con IDs reales
 			usa: ['9bZkp7q19f0'],
 			argentina: ['kJQP7kiw5Fk'],
 			brasil: ['60ItHLz5WEA'],
