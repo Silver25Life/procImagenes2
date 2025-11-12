@@ -24,7 +24,7 @@
 				this.time = 0;
 			},
 			tick: function (time) {
-				this.time = time / 1000; // Convertir a segundos
+				this.time = time / 1000;
 				this.waveEffect();
 			},
 			waveEffect: function () {
@@ -42,8 +42,6 @@
 				for (let i = 0; i < this.vertices.length; i += 3) {
 					const x = this.originalPositions[i];
 					const z = this.originalPositions[i + 2];
-
-					// Efecto de onda basado en la posición X y el tiempo
 					const wave = Math.sin(x * data.frequency + this.time * data.speed) * data.amplitude;
 					this.vertices[i + 1] = this.originalPositions[i + 1] + wave;
 				}
@@ -58,14 +56,13 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
 	<!-- Botones principales -->
 	<div id="uiButtons">
 		<button id="triviaButton">Mostrar Trivia</button>
 		<button id="filterButton">Filtros</button>
 		<button id="videoButton">Ver Video</button>
-		<button id="animButton">Ondear Bandera</button> <!-- Texto actualizado -->
+		<button id="animButton">Ondear Bandera</button>
 	</div>
 
 	<!-- Modal de Trivia -->
@@ -91,9 +88,7 @@
 		</div>
 	</div>
 
-	<!-- Video fuera de AR -->
-
-	<!-- Video de YouTube -->
+	<!-- Modal de YouTube -->
 	<div id="youtubeModal" class="modal">
 		<div class="modal-content youtube-modal">
 			<span id="closeYoutube" class="close">&times;</span>
@@ -104,35 +99,63 @@
 	<!-- Escena AR -->
 	<a-scene mindar-image="imageTargetSrc: pais.mind; autoStart: true; uiScanning: no; uiError: no;"
 		vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
-		<!-- México -->
+
+		<!-- Targets para cada bandera -->
 		<a-entity mindar-image-target="targetIndex: 0" id="mexicoTarget">
 			<a-plane id="banderaMexico" src="#mexicoImg" height="0.5" width="0.8"
 				rotation="0 0 0"></a-plane>
 			<a-entity text="value: ¡Viva México!; align: center; color: #00FF00; width: 2"
 				position="0 0.6 0"></a-entity>
-			<a-entity id="modeloMexico" gltf-model="#modelo3D" position="0 -0.3 0" scale="0.3 0.3 0.3"
-				rotation="0 0 0"></a-entity>
 		</a-entity>
 
-		<a-assets>
-			<img id="mexicoImg" src="mexico.jpg" crossorigin="anonymous" />
-			<img id="usaImg" src="usa.jpg" crossorigin="anonymous" />
-			<a-asset-item id="modelo3D" src="modelo.glb"></a-asset-item>
-		</a-assets>
-
-		<a-camera position="0 0 0" look-controls="enabled: false" active="true"></a-camera>
-
-		<!-- USA -->
 		<a-entity mindar-image-target="targetIndex: 1" id="usaTarget">
 			<a-plane id="banderaUSA" src="#usaImg" height="0.5" width="0.8" rotation="0 0 0"></a-plane>
 			<a-entity text="value: United We Stand; align: center; color: #0000FF; width: 2"
 				position="0 0.6 0"></a-entity>
-			<a-entity id="modeloUSA" gltf-model="#modelo3D" position="0 -0.3 0" scale="0.3 0.3 0.3"
-				rotation="0 0 0"></a-entity>
 		</a-entity>
 
+		<!-- Agrega más targets aquí siguiendo el mismo patrón -->
+		<a-entity mindar-image-target="targetIndex: 2" id="argentinaTarget">
+			<a-plane id="banderaArgentina" src="#argentinaImg" height="0.5" width="0.8"
+				rotation="0 0 0"></a-plane>
+			<a-entity text="value: Argentina; align: center; color: #75AADB; width: 2"
+				position="0 0.6 0"></a-entity>
+		</a-entity>
+
+		<a-entity mindar-image-target="targetIndex: 3" id="brasilTarget">
+			<a-plane id="banderaBrasil" src="#brasilImg" height="0.5" width="0.8"
+				rotation="0 0 0"></a-plane>
+			<a-entity text="value: Brasil; align: center; color: #009C3B; width: 2"
+				position="0 0.6 0"></a-entity>
+		</a-entity>
+
+		<!-- Continúa con los demás países... -->
+
+		<a-assets>
+			<!-- Imágenes de todas las banderas -->
+			<img id="mexicoImg" src="mexico.jpg" crossorigin="anonymous" />
+			<img id="usaImg" src="usa.jpg" crossorigin="anonymous" />
+			<img id="argentinaImg" src="argentina.jpg" crossorigin="anonymous" />
+			<img id="brasilImg" src="brazil.jpg" crossorigin="anonymous" />
+			<img id="japonImg" src="japon.jpg" crossorigin="anonymous" />
+			<img id="canadaImg" src="canada.jpg" crossorigin="anonymous" />
+			<img id="colombiaImg" src="colombia.jpg" crossorigin="anonymous" />
+			<img id="coreaDelSurImg" src="coreaDelSur.jpg" crossorigin="anonymous" />
+			<img id="egiptoImg" src="egipto.jpg" crossorigin="anonymous" />
+			<img id="inglaterraImg" src="inglaterra.jpg" crossorigin="anonymous" />
+			<!-- Agrega el resto de las imágenes aquí -->
+		</a-assets>
+
+		<a-camera position="0 0 0" look-controls="enabled: false" active="true"></a-camera>
 	</a-scene>
 
+	<!-- Scripts modulares -->
+	<script src="countryManager.js"></script>
+	<script src="triviaManager.js"></script>
+	<script src="videoManager.js"></script>
+	<script src="animationManager.js"></script>
+	<script src="filterManager.js"></script>
+	<script src="uiManager.js"></script>
 	<script src="app.js"></script>
 </body>
 
